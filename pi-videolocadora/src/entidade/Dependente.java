@@ -9,21 +9,21 @@ package entidade;
  *
  * @author bonamigo
  */
-public class Funcionario {
+public class Dependente {
     
     private Integer id;
     private String nome;
-    private String cargo;
+    private String telefone;
     private Integer cliente_id;
 
-    public Funcionario(Integer id, String nome, String cargo, Integer cliente_id) {
+    public Dependente(Integer id, String nome, String telefone, Integer cliente_id) {
         this.id = id;
         this.nome = nome;
-        this.cargo = cargo;
+        this.telefone = telefone;
         this.cliente_id = cliente_id;
     }
     
-    public Funcionario(){
+    public Dependente(){
         
     }
 
@@ -43,12 +43,12 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public Integer getCliente_id() {
@@ -58,5 +58,8 @@ public class Funcionario {
     public void setCliente_id(Integer cliente_id) {
         this.cliente_id = cliente_id;
     }
+    
+    
+    
     
 }
