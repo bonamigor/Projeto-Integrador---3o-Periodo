@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -89,6 +89,10 @@ public class Cliente {
 
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
+    }
+    
+    public String toString(){
+        return String.format("ID: "+id+" e Nome: "+nome);
     }
     
 }
