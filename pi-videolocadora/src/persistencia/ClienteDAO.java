@@ -15,92 +15,115 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author rafael
  */
 public class ClienteDAO {
-    
+
     public void incluir(Cliente parametro) throws SQLException {
+        Connection cnn = util.Conexao.getConexao();
+        cnn.setAutoCommit(false);
+        try {
 
-        //Cria a instrução SQL para a inserção no banco
-        String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento) "
-                + " VALUES(?,?,?,?,?,?);";
+            //Cria a instrução SQL para a inserção no banco
+            String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento) "
+                    + " VALUES(?,?,?,?,?,?);";
 
-        //Criando o objeto para a conexao
-        //Connection cnn = util.Conexao.getConexao();
-        Connection cnn = util.ConexaoSingleton.getConnection();
+            //Criando o objeto para a conexao
+            //Connection cnn = util.Conexao.getConexao();
+            //Cria o objeto para executar os comandos no banco
+            PreparedStatement prd = cnn.prepareStatement(sql);
 
-        //Cria o objeto para executar os comandos no banco
-        PreparedStatement prd = cnn.prepareStatement(sql);
-        
-        java.sql.Date dataSQL = new Date(parametro.getData_nascimento().getTime());
-        
-        //Substitui as variveis do sql pelos valores passados
-        //como parametro
-        prd.setString(1, parametro.getNome());
-        prd.setString(2, parametro.getCpf());
-        prd.setString(3, parametro.getTelefone());
-        prd.setString(4, parametro.getEndereco());
-        prd.setString(5, parametro.getEmail());
-        prd.setDate(6, dataSQL);
+            java.sql.Date dataSQL = new Date(parametro.getData_nascimento().getTime());
 
-        //Executa o comando
-        prd.execute();
+            //Substitui as variveis do sql pelos valores passados
+            //como parametro
+            prd.setString(1, parametro.getNome());
+            prd.setString(2, parametro.getCpf());
+            prd.setString(3, parametro.getTelefone());
+            prd.setString(4, parametro.getEndereco());
+            prd.setString(5, parametro.getEmail());
+            prd.setDate(6, dataSQL);
 
-        //Recupera o id gerado
-        String sql2 = "SELECT currval('cliente_id_seq') as id";
+            //Executa o comando
+            prd.execute();
 
-        Statement stm = cnn.createStatement();
-        ResultSet rs = stm.executeQuery(sql2);
+            //Recupera o id gerado
+            String sql2 = "SELECT currval('cliente_id_seq') as id";
 
-        if (rs.next()) {
-            parametro.setId(rs.getInt("id"));
+            Statement stm = cnn.createStatement();
+            ResultSet rs = stm.executeQuery(sql2);
+
+            if (rs.next()) {
+                parametro.setId(rs.getInt("id"));
+            }
+
+            rs.close();
+            cnn.commit();
+        } catch (Exception e) {
+            cnn.rollback();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
-        rs.close();
         cnn.close();
 
     }
 
     public void alterar(Cliente parametro) throws SQLException {
-
-        String sql = "UPDATE cliente SET"
-                + " nome = ?, cpf = ?, telefone = ?, endereco = ?, email = ?, data_nascimento = ?"
-                + " WHERE id = ?";
-
         Connection cnn = util.Conexao.getConexao();
-
-        PreparedStatement prd = cnn.prepareStatement(sql);
+        cnn.setAutoCommit(false);
         
-        java.sql.Date dataSQL = new Date(parametro.getData_nascimento().getTime());
+        try {
 
-        prd.setString(1, parametro.getNome());
-        prd.setString(2, parametro.getCpf());
-        prd.setString(3, parametro.getTelefone());
-        prd.setString(4, parametro.getEndereco());
-        prd.setString(5, parametro.getEmail());
-        prd.setDate(6, dataSQL);
-        prd.setInt(7, parametro.getId());
+            String sql = "UPDATE cliente SET"
+                    + " nome = ?, cpf = ?, telefone = ?, endereco = ?, email = ?, data_nascimento = ?"
+                    + " WHERE id = ?";
 
-        prd.execute();
+            PreparedStatement prd = cnn.prepareStatement(sql);
+
+            java.sql.Date dataSQL = new Date(parametro.getData_nascimento().getTime());
+
+            prd.setString(1, parametro.getNome());
+            prd.setString(2, parametro.getCpf());
+            prd.setString(3, parametro.getTelefone());
+            prd.setString(4, parametro.getEndereco());
+            prd.setString(5, parametro.getEmail());
+            prd.setDate(6, dataSQL);
+            prd.setInt(7, parametro.getId());
+
+            prd.execute();
+
+        } catch (Exception e) {
+            //Desfaz as alterações no banco de dados 
+            cnn.rollback();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         cnn.close();
 
     }
 
     public void excluir(int id) throws SQLException {
-
+        
+        Connection cnn = util.Conexao.getConexao();
+        cnn.setAutoCommit(false);
+        
+        try{
+            
         String sql = "DELETE FROM cliente"
                 + " WHERE id = ?";
-
-        Connection cnn = util.Conexao.getConexao();
 
         PreparedStatement prd = cnn.prepareStatement(sql);
 
         prd.setInt(1, id);
 
         prd.execute();
+        } catch (Exception e) {
+            //Desfaz as alterações no banco de dados 
+            cnn.rollback();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         cnn.close();
 
     }
@@ -146,7 +169,7 @@ public class ClienteDAO {
         ResultSet rs = stm.executeQuery(sql);
 
         List<Cliente> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             Cliente cliente = new Cliente();
             cliente.setId(rs.getInt("id"));
@@ -163,9 +186,9 @@ public class ClienteDAO {
 
         return lista;
     }
-    
-    public List<Cliente> listarNomes() throws SQLException{
-        
+
+    public List<Cliente> listarNomes() throws SQLException {
+
         Connection cnn = util.Conexao.getConexao();
 
         String sql = "SELECT nome FROM cliente ";
@@ -175,7 +198,7 @@ public class ClienteDAO {
         ResultSet rs = stm.executeQuery(sql);
 
         List<Cliente> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             Cliente cliente = new Cliente();
             cliente.setNome(rs.getString("nome"));
@@ -186,5 +209,5 @@ public class ClienteDAO {
 
         return lista;
     }
-    
+
 }
