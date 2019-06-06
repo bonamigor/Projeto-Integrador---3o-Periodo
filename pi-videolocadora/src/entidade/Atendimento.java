@@ -15,6 +15,8 @@ public class Atendimento {
     
     private Integer id;
     private Integer funcionario_id;
+    private Integer cliente_id;
+    private Integer dependente_id;
     private Integer multa_id;
     private Integer quantidadeMidias;
     private Date dataVenda;
@@ -26,9 +28,11 @@ public class Atendimento {
     private Double valorTotal;
     private boolean status;
 
-    public Atendimento(Integer id, Integer funcionario_id, Integer multa_id, Integer quantidadeMidias, Date dataVenda, Date dataReserva, Date dataLocacao, Date dadaDevolucao, Date duracao, Double desconto, Double valorTotal, boolean status) {
+    public Atendimento(Integer id, Integer funcionario_id, Integer cliente_id, Integer dependente_id, Integer multa_id, Integer quantidadeMidias, Date dataVenda, Date dataReserva, Date dataLocacao, Date dadaDevolucao, Date duracao, Double desconto, Double valorTotal, boolean status) {
         this.id = id;
         this.funcionario_id = funcionario_id;
+        this.cliente_id = cliente_id;
+        this.dependente_id = dependente_id;
         this.multa_id = multa_id;
         this.quantidadeMidias = quantidadeMidias;
         this.dataVenda = dataVenda;
@@ -59,6 +63,22 @@ public class Atendimento {
 
     public void setFuncionario_id(Integer funcionario_id) {
         this.funcionario_id = funcionario_id;
+    }
+    
+    public Integer getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(Integer cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+
+    public Integer getDependente_id() {
+        return dependente_id;
+    }
+
+    public void setDependente_id(Integer dependente_id) {
+        this.dependente_id = dependente_id;
     }
 
     public Integer getMulta_id() {
