@@ -6,6 +6,7 @@
 package apresentacao;
 
 import entidade.Cliente;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JDesktopPane;
@@ -32,7 +33,7 @@ public class CadCliente extends javax.swing.JInternalFrame {
         painelPrincipal = parametro;
     }
 
-    public CadCliente(JDesktopPane parametro, Cliente cliente) {
+    public CadCliente(JDesktopPane parametro, Cliente cliente) throws ParseException {
         this();
         painelPrincipal = parametro;
 
@@ -352,7 +353,7 @@ public class CadCliente extends javax.swing.JInternalFrame {
 
     }
     
-    private void carregarTela(Cliente cliente) {
+    private void carregarTela(Cliente cliente) throws ParseException {
 
         txtId.setText(cliente.getId() + "");
         txtNome.setText(cliente.getNome());
@@ -360,7 +361,12 @@ public class CadCliente extends javax.swing.JInternalFrame {
         txtTelefone.setText(cliente.getTelefone());
         txtEndereco.setText(cliente.getEndereco());
         txtEmail.setText(cliente.getEmail());
-        txtDataNascimento.setText(cliente.getData_nascimento().toString());
+        
+        SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        String result = out.format(in.parse(cliente.getData_nascimento().toString()));
+        
+        txtDataNascimento.setText(result);
 
         btnExcluir.setEnabled(true);
 
