@@ -25,22 +25,22 @@ public class TesteCliente {
         ClienteDAO persistencia = new ClienteDAO();
 
         //inclusao
-//        System.out.println("Digite o nome: ");
-//        cliente.setNome(entrada.nextLine());
-//        System.out.println("Digite o CPF: ");
-//        cliente.setCpf(entrada.next());
-//        System.out.println("Digite o Telefone: ");
-//        cliente.setTelefone(entrada.next());
-//        System.out.println("Digite o Endereço: ");
-//        cliente.setEndereco(entrada.next());
-//        System.out.println("Digite o E-mail: ");
-//        cliente.setEmail(entrada.next());
-//        System.out.println("Digite o Data de Nascimento: ");
-//        String data = entrada.next();
-//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-//        Date data_nascimento = formato.parse(data);
-//        cliente.setData_nascimento(data_nascimento);
-//        persistencia.incluir(cliente);
+        System.out.println("Digite o nome: ");
+        cliente.setNome(entrada.nextLine());
+        System.out.println("Digite o CPF: ");
+        cliente.setCpf(entrada.next());
+        System.out.println("Digite o Telefone: ");
+        cliente.setTelefone(entrada.next());
+        System.out.println("Digite o Endereço: ");
+        cliente.setEndereco(entrada.next());
+        System.out.println("Digite o E-mail: ");
+        cliente.setEmail(entrada.next());
+        System.out.println("Digite o Data de Nascimento: ");
+        String data = entrada.next();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date data_nascimento = formato.parse(data);
+        cliente.setData_nascimento(data_nascimento);
+        persistencia.incluir(cliente);
         //alteracao
 //        System.out.println("Digite o nome: ");
 //        cliente.setNome(entrada.nextLine());
@@ -77,9 +77,9 @@ public class TesteCliente {
 //        }
         
         //exclusao
-        System.out.println("Digite o ID do cliente que deseja excluir: ");
-        Integer id = entrada.nextInt();
-        persistencia.excluir(id);
+//        System.out.println("Digite o ID do cliente que deseja excluir: ");
+//        Integer id = entrada.nextInt();
+//        persistencia.excluir(id);
 
     }
 

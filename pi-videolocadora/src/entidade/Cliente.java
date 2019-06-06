@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author bonamigo
  */
-public class Cliente {
+public class Cliente extends Object{
     
     private Integer id;
     private String nome;
@@ -92,7 +92,12 @@ public class Cliente {
     }
     
     public String toString(){
-        return String.format("ID: "+id+" e Nome: "+nome);
+        return String.format(nome);
+    }
+    
+    @Override
+    protected Object clone(){
+        return this;
     }
     
 }

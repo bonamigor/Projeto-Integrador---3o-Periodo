@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -28,7 +29,8 @@ public class ClienteDAO {
                 + " VALUES(?,?,?,?,?,?);";
 
         //Criando o objeto para a conexao
-        Connection cnn = util.Conexao.getConexao();
+        //Connection cnn = util.Conexao.getConexao();
+        Connection cnn = util.ConexaoSingleton.getConnection();
 
         //Cria o objeto para executar os comandos no banco
         PreparedStatement prd = cnn.prepareStatement(sql);
@@ -154,6 +156,29 @@ public class ClienteDAO {
             cliente.setEndereco(rs.getString("endereco"));
             cliente.setEmail(rs.getString("email"));
             cliente.setData_nascimento(rs.getDate("data_nascimento"));
+            lista.add(cliente);
+        }
+        rs.close();
+        cnn.close();
+
+        return lista;
+    }
+    
+    public List<Cliente> listarNomes() throws SQLException{
+        
+        Connection cnn = util.Conexao.getConexao();
+
+        String sql = "SELECT nome FROM cliente ";
+
+        Statement stm = cnn.createStatement();
+
+        ResultSet rs = stm.executeQuery(sql);
+
+        List<Cliente> lista = new ArrayList<>();
+        
+        while (rs.next()) {
+            Cliente cliente = new Cliente();
+            cliente.setNome(rs.getString("nome"));
             lista.add(cliente);
         }
         rs.close();
