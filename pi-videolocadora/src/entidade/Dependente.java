@@ -5,6 +5,8 @@
  */
 package entidade;
 
+import java.util.Date;
+
 /**
  *
  * @author bonamigo
@@ -15,12 +17,14 @@ public class Dependente {
     private String nome;
     private String telefone;
     private Integer cliente_id;
+    private Date dataNascimento;
 
-    public Dependente(Integer id, String nome, String telefone, Integer cliente_id) {
+    public Dependente(Integer id, String nome, String telefone, Integer cliente_id, Date dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.cliente_id = cliente_id;
+        this.dataNascimento = dataNascimento;
     }
     
     public Dependente(){
@@ -58,8 +62,13 @@ public class Dependente {
     public void setCliente_id(Integer cliente_id) {
         this.cliente_id = cliente_id;
     }
-    
-    
-    
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
     
 }
