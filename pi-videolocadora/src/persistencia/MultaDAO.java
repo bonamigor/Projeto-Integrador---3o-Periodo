@@ -5,10 +5,8 @@
  */
 package persistencia;
 
-import entidade.Dependente;
-import entidade.Funcionario;
+import entidade.Multa;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,29 +18,30 @@ import java.util.List;
  *
  * @author rafael
  */
-public class FuncionarioDAO {
+public class MultaDAO {
     
-    public void incluir(Funcionario parametro) throws SQLException {
+    public void incluir(Multa parametro) throws SQLException {
 
         //Cria a instrução SQL para a inserção no banco
-        String sql = "INSERT INTO funcionario (cargo, nome) VALUES(?,?);";
+        String sql = "INSERT INTO multa (descricao, valor) VALUES(?,?);";
 
         //Criando o objeto para a conexao
         Connection cnn = util.Conexao.getConexao();
+        //Connection cnn = util.ConexaoSingleton.getConnection();
 
         //Cria o objeto para executar os comandos no banco
         PreparedStatement prd = cnn.prepareStatement(sql);
-
+        
         //Substitui as variveis do sql pelos valores passados
         //como parametro
-        prd.setString(1, parametro.getCargo());
-        prd.setString(2, parametro.getNome());
-
+        prd.setString(1, parametro.getDescricao());
+        prd.setDouble(2, parametro.getValor());
+        
         //Executa o comando
         prd.execute();
 
         //Recupera o id gerado
-        String sql2 = "SELECT currval('funcionario_id_seq') as id";
+        String sql2 = "SELECT currval('multa_id_seq') as id";
 
         Statement stm = cnn.createStatement();
         ResultSet rs = stm.executeQuery(sql2);
@@ -56,16 +55,16 @@ public class FuncionarioDAO {
 
     }
 
-    public void alterar(Funcionario parametro) throws SQLException {
+    public void alterar(Multa parametro) throws SQLException {
 
-        String sql = "UPDATE funcionario SET cargo = ?, nome = ? WHERE id = ?";
+        String sql = "UPDATE multa SET descricao = ?, valor = ? WHERE id = ?";
 
         Connection cnn = util.Conexao.getConexao();
 
         PreparedStatement prd = cnn.prepareStatement(sql);
         
-        prd.setString(1, parametro.getCargo());
-        prd.setString(2, parametro.getNome());
+        prd.setString(1, parametro.getDescricao());
+        prd.setDouble(2, parametro.getValor());
         prd.setInt(3, parametro.getId());
 
         prd.execute();
@@ -75,7 +74,7 @@ public class FuncionarioDAO {
 
     public void excluir(int id) throws SQLException {
 
-        String sql = "DELETE FROM funcionario WHERE id = ?";
+        String sql = "DELETE FROM multa WHERE id = ?";
 
         Connection cnn = util.Conexao.getConexao();
 
@@ -88,47 +87,51 @@ public class FuncionarioDAO {
 
     }
 
-    public Funcionario consultar(int id) throws SQLException {
+    public Multa consultar(int id) throws SQLException {
 
         Connection cnn = util.Conexao.getConexao();
 
-        String sql = "SELECT id, cargo, nome FROM funcionario WHERE id = ?";
+        String sql = "SELECT id, descricao, valor FROM multa WHERE id = ?";
 
         PreparedStatement stm = cnn.prepareStatement(sql);
         stm.setInt(1, id);
 
         ResultSet rs = stm.executeQuery();
         
-        Funcionario funcionario = new Funcionario();
+        
+        Multa multa = new Multa();
+        
         if (rs.next()) {
-            funcionario.setId(rs.getInt("id"));
-            funcionario.setCargo(rs.getString("cargo"));
-            funcionario.setNome(rs.getString("nome"));
+            
+            multa.setId(rs.getInt("id"));
+            multa.setDescricao(rs.getString("descricao"));
+            multa.setValor(rs.getDouble("valor"));
         }
+        
         rs.close();
         cnn.close();
 
-        return funcionario;
+        return multa;
     }
 
-    public List<Funcionario> listar() throws SQLException {
+    public List<Multa> listar() throws SQLException {
 
         Connection cnn = util.Conexao.getConexao();
 
-        String sql = "SELECT id, nome, cargo FROM funcionario";
+        String sql = "SELECT id, descricao, valor FROM multa";
 
         Statement stm = cnn.createStatement();
 
         ResultSet rs = stm.executeQuery(sql);
 
-        List<Funcionario> lista = new ArrayList<>();
+        List<Multa> lista = new ArrayList<>();
 
         while (rs.next()) {
-            Funcionario funcionario = new Funcionario();
-            funcionario.setId(rs.getInt("id"));
-            funcionario.setCargo(rs.getString("cargo"));
-            funcionario.setNome(rs.getString("nome"));
-            lista.add(funcionario);
+            Multa multa = new Multa();
+            multa.setId(rs.getInt("id"));
+            multa.setDescricao(rs.getString("descricao"));
+            multa.setValor(rs.getDouble("valor"));
+            lista.add(multa);
         }
         rs.close();
         cnn.close();

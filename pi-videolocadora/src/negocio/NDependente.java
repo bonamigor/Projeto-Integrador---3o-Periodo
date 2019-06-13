@@ -39,7 +39,7 @@ public class NDependente {
             throw new Exception("É necessário preencher a Data de Nascimento.");
         }
         
-        if(parametro.getId() == null){
+        if(parametro.getId() == 0){
             per.incluir(parametro);
         }else{
             per.alterar(parametro);

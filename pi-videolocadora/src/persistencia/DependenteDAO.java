@@ -28,8 +28,8 @@ public class DependenteDAO {
                 + " VALUES(?,?,?,?);";
 
         //Criando o objeto para a conexao
-        //Connection cnn = util.Conexao.getConexao();
-        Connection cnn = util.ConexaoSingleton.getConnection();
+        Connection cnn = util.Conexao.getConexao();
+        //Connection cnn = util.ConexaoSingleton.getConnection();
 
         //Cria o objeto para executar os comandos no banco
         PreparedStatement prd = cnn.prepareStatement(sql);
@@ -63,7 +63,7 @@ public class DependenteDAO {
 
     public void alterar(Dependente parametro) throws SQLException {
 
-        String sql = "UPDATE dependente SET nome = ?, telefone = ?, id_cliente = ?, data_nascimento WHERE id = ?";
+        String sql = "UPDATE dependente SET nome = ?, telefone = ?, id_cliente = ?, data_nascimento = ? WHERE id = ?";
 
         Connection cnn = util.Conexao.getConexao();
 
@@ -107,7 +107,7 @@ public class DependenteDAO {
         stm.setInt(1, id);
 
         ResultSet rs = stm.executeQuery();
-        
+
         Dependente dependente = new Dependente();
         if (rs.next()) {
             dependente.setId(rs.getInt("id"));
@@ -148,30 +148,30 @@ public class DependenteDAO {
 
         return lista;
     }
-    
+
     public List<String> comboBox() throws SQLException {
-        
+
         List<String> strList = new ArrayList<String>();
-        
+
         Connection cnn = util.ConexaoSingleton.getConnection();
-        
+
         String sql = "SELECT nome FROM cliente";
-        
+
         PreparedStatement prd = cnn.prepareStatement(sql);
-        
+
         ResultSet rs = prd.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             strList.add(rs.getString("nome"));
         }
         prd.close();
         return strList;
     }
-    
+
     public int pegaId(String item) throws SQLException {
-        
+
         int id = 0;
-        
+
         Connection cnn = util.Conexao.getConexao();
 
         String sql = "SELECT id FROM cliente WHERE nome = ?";
@@ -180,15 +180,13 @@ public class DependenteDAO {
         stm.setString(1, item);
 
         ResultSet rs = stm.executeQuery();
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             id = rs.getInt("id");
         }
-        
+
         return id;
-        
+
     }
-    
+
 }
-
-
