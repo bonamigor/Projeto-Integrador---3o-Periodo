@@ -38,6 +38,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCadCliente = new javax.swing.JMenuItem();
         menuDependente = new javax.swing.JMenuItem();
         menuFuncionario = new javax.swing.JMenuItem();
+        menuTitulos = new javax.swing.JMenuItem();
+        menuMidia = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -80,7 +82,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
         menuFuncionario.setText("Funcionário");
+        menuFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFuncionarioActionPerformed(evt);
+            }
+        });
         menuCadastro.add(menuFuncionario);
+
+        menuTitulos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        menuTitulos.setText("Títulos");
+        menuTitulos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTitulosActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuTitulos);
+
+        menuMidia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
+        menuMidia.setText("Mídia");
+        menuMidia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMidiaActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuMidia);
 
         jMenuBar1.add(menuCadastro);
 
@@ -156,6 +181,51 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuDependenteActionPerformed
 
+    private void menuTitulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTitulosActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+
+            CadTitulo cadastroTitulo = new CadTitulo(this.painelPrincipal);
+            this.painelPrincipal.add(cadastroTitulo);
+            cadastroTitulo.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_menuTitulosActionPerformed
+
+    private void menuMidiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMidiaActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+
+            CadMidia cadastroMidia = new CadMidia(this.painelPrincipal);
+            this.painelPrincipal.add(cadastroMidia);
+            cadastroMidia.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_menuMidiaActionPerformed
+
+    private void menuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncionarioActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+
+            CadFuncionario cadastroFuncionario = new CadFuncionario(this.painelPrincipal);
+            this.painelPrincipal.add(cadastroFuncionario);
+            cadastroFuncionario.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_menuFuncionarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,7 +271,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuDependente;
     private javax.swing.JMenuItem menuFuncionario;
+    private javax.swing.JMenuItem menuMidia;
     private javax.swing.JMenuItem menuSair;
+    private javax.swing.JMenuItem menuTitulos;
     private javax.swing.JDesktopPane painelPrincipal;
     // End of variables declaration//GEN-END:variables
 

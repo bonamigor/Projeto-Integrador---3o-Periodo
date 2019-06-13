@@ -5,9 +5,7 @@
  */
 package apresentacao;
 
-import entidade.Cliente;
 import entidade.Dependente;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.util.Vector;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;

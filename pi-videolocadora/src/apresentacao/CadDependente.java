@@ -5,21 +5,17 @@
  */
 package apresentacao;
 
-import entidade.Cliente;
 import entidade.Dependente;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
-import negocio.NCliente;
 import negocio.NDependente;
-import persistencia.ClienteDAO;
 import persistencia.DependenteDAO;
 
 /**

@@ -24,16 +24,14 @@ import javax.swing.JOptionPane;
 public class ClienteDAO {
 
     public void incluir(Cliente parametro) throws SQLException {
-        Connection cnn = util.Conexao.getConexao();
-        cnn.setAutoCommit(false);
         try {
 
             //Cria a instrução SQL para a inserção no banco
-            String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento) "
-                    + " VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id "
+                    + "VALUES(?,?,?,?,?,?,?);";
 
             //Criando o objeto para a conexao
-            //Connection cnn = util.Conexao.getConexao();
+            Connection cnn = util.Conexao.getConexao();
             //Cria o objeto para executar os comandos no banco
             PreparedStatement prd = cnn.prepareStatement(sql);
 
@@ -47,6 +45,7 @@ public class ClienteDAO {
             prd.setString(4, parametro.getEndereco());
             prd.setString(5, parametro.getEmail());
             prd.setDate(6, dataSQL);
+            prd.setInt(7, 0);
 
             //Executa o comando
             prd.execute();
@@ -62,24 +61,22 @@ public class ClienteDAO {
             }
 
             rs.close();
-            cnn.commit();
+            cnn.close();
         } catch (Exception e) {
-            cnn.rollback();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        cnn.close();
 
     }
 
     public void alterar(Cliente parametro) throws SQLException {
-        Connection cnn = util.Conexao.getConexao();
-        cnn.setAutoCommit(false);
-        
+
         try {
 
             String sql = "UPDATE cliente SET"
-                    + " nome = ?, cpf = ?, telefone = ?, endereco = ?, email = ?, data_nascimento = ?"
+                    + " nome = ?, cpf = ?, telefone = ?, endereco = ?, email = ?, data_nascimento = ?, funcionario_id = ?"
                     + " WHERE id = ?";
+
+            Connection cnn = util.Conexao.getConexao();
 
             PreparedStatement prd = cnn.prepareStatement(sql);
 
@@ -91,34 +88,33 @@ public class ClienteDAO {
             prd.setString(4, parametro.getEndereco());
             prd.setString(5, parametro.getEmail());
             prd.setDate(6, dataSQL);
-            prd.setInt(7, parametro.getId());
+            prd.setInt(7, 0);
+            prd.setInt(8, parametro.getId());
 
             prd.execute();
-
+            cnn.close();
+            
         } catch (Exception e) {
-            //Desfaz as alterações no banco de dados 
-            cnn.rollback();
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Deu meio errado" + e.getMessage());
         }
-        cnn.close();
 
     }
 
     public void excluir(int id) throws SQLException {
-        
+
         Connection cnn = util.Conexao.getConexao();
         cnn.setAutoCommit(false);
-        
-        try{
-            
-        String sql = "DELETE FROM cliente"
-                + " WHERE id = ?";
 
-        PreparedStatement prd = cnn.prepareStatement(sql);
+        try {
 
-        prd.setInt(1, id);
+            String sql = "DELETE FROM cliente"
+                    + " WHERE id = ?";
 
-        prd.execute();
+            PreparedStatement prd = cnn.prepareStatement(sql);
+
+            prd.setInt(1, id);
+
+            prd.execute();
         } catch (Exception e) {
             //Desfaz as alterações no banco de dados 
             cnn.rollback();
@@ -132,7 +128,7 @@ public class ClienteDAO {
 
         Connection cnn = util.Conexao.getConexao();
 
-        String sql = "SELECT id, nome, cpf, telefone, endereco, email, data_nascimento"
+        String sql = "SELECT id, nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id"
                 + " FROM cliente "
                 + " WHERE id = ?";
 
@@ -150,6 +146,7 @@ public class ClienteDAO {
             cliente.setEndereco(rs.getString("endereco"));
             cliente.setEmail(rs.getString("email"));
             cliente.setData_nascimento(rs.getDate("data_nascimento"));
+            cliente.setFuncionario_id(rs.getInt("funcionario_id"));
         }
         rs.close();
         cnn.close();
@@ -161,7 +158,7 @@ public class ClienteDAO {
 
         Connection cnn = util.Conexao.getConexao();
 
-        String sql = "SELECT id, nome, cpf, telefone, endereco, email, data_nascimento"
+        String sql = "SELECT id, nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id"
                 + " FROM cliente ";
 
         Statement stm = cnn.createStatement();
@@ -179,6 +176,7 @@ public class ClienteDAO {
             cliente.setEndereco(rs.getString("endereco"));
             cliente.setEmail(rs.getString("email"));
             cliente.setData_nascimento(rs.getDate("data_nascimento"));
+            cliente.setFuncionario_id(rs.getInt("funcionario_id"));
             lista.add(cliente);
         }
         rs.close();

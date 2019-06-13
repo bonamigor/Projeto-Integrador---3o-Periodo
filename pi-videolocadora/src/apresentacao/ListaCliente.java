@@ -153,7 +153,7 @@ public class ListaCliente extends javax.swing.JInternalFrame {
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Opção Inválida");
-
+                break;
         }
 
     }//GEN-LAST:event_comboBoxOrdenacaoActionPerformed
