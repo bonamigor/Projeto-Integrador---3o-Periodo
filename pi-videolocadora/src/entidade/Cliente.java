@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author bonamigo
  */
-public class Cliente extends Object{
+public class Cliente {
     
     private Integer id;
     private String nome;
@@ -20,8 +20,9 @@ public class Cliente extends Object{
     private String endereco;
     private String email;
     private Date data_nascimento;
+    private Integer funcionario_id;
 
-    public Cliente(Integer id, String nome, String cpf, String telefone, String endereco, String email, Date data_nascimento) {
+    public Cliente(Integer id, String nome, String cpf, String telefone, String endereco, String email, Date data_nascimento, Integer funcionario_id) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -29,6 +30,7 @@ public class Cliente extends Object{
         this.endereco = endereco;
         this.email = email;
         this.data_nascimento = data_nascimento;
+        this.funcionario_id = funcionario_id;
     }
     
     public Cliente(){
@@ -94,10 +96,13 @@ public class Cliente extends Object{
     public String toString(){
         return String.format(nome);
     }
-    
-    @Override
-    protected Object clone(){
-        return this;
+
+    public Integer getFuncionario_id() {
+        return funcionario_id;
+    }
+
+    public void setFuncionario_id(Integer funcionario_id) {
+        this.funcionario_id = funcionario_id;
     }
     
 }

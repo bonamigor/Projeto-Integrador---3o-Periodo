@@ -40,7 +40,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuFuncionario = new javax.swing.JMenuItem();
         menuTitulos = new javax.swing.JMenuItem();
         menuMidia = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuReserva = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuVenda = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        menuDevolucao = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         menuSair = new javax.swing.JMenuItem();
@@ -109,8 +113,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCadastro);
 
-        jMenu1.setText("Atendimento");
-        jMenuBar1.add(jMenu1);
+        menuReserva.setText("Atendimento");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem1.setText("Reserva");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuReserva.add(jMenuItem1);
+
+        menuVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        menuVenda.setText("Locação");
+        menuReserva.add(menuVenda);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem3.setText("Venda");
+        menuReserva.add(jMenuItem3);
+
+        menuDevolucao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        menuDevolucao.setText("Devolução");
+        menuReserva.add(menuDevolucao);
+
+        jMenuBar1.add(menuReserva);
 
         jMenu2.setText("Relatório");
         jMenuBar1.add(jMenu2);
@@ -226,6 +252,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuFuncionarioActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+
+            CadReserva cadastroReserva = new CadReserva(this.painelPrincipal);
+            this.painelPrincipal.add(cadastroReserva);
+            cadastroReserva.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -262,18 +303,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuCadCliente;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuDependente;
+    private javax.swing.JMenuItem menuDevolucao;
     private javax.swing.JMenuItem menuFuncionario;
     private javax.swing.JMenuItem menuMidia;
+    private javax.swing.JMenu menuReserva;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenuItem menuTitulos;
+    private javax.swing.JMenuItem menuVenda;
     private javax.swing.JDesktopPane painelPrincipal;
     // End of variables declaration//GEN-END:variables
 

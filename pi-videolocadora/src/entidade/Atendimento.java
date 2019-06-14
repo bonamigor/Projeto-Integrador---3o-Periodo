@@ -22,7 +22,7 @@ public class Atendimento {
     private Date dataVenda;
     private Date dataReserva;
     private Date dataLocacao;
-    private Date dadaDevolucao;
+    private Date dataDevolucao;
     private Date duracao;
     private Double desconto;
     private Double valorTotal;
@@ -38,7 +38,7 @@ public class Atendimento {
         this.dataVenda = dataVenda;
         this.dataReserva = dataReserva;
         this.dataLocacao = dataLocacao;
-        this.dadaDevolucao = dadaDevolucao;
+        this.dataDevolucao = dadaDevolucao;
         this.duracao = duracao;
         this.desconto = desconto;
         this.valorTotal = valorTotal;
@@ -121,12 +121,12 @@ public class Atendimento {
         this.dataLocacao = dataLocacao;
     }
 
-    public Date getDadaDevolucao() {
-        return dadaDevolucao;
+    public Date getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setDadaDevolucao(Date dadaDevolucao) {
-        this.dadaDevolucao = dadaDevolucao;
+    public void setDataDevolucao(Date dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     public Date getDuracao() {

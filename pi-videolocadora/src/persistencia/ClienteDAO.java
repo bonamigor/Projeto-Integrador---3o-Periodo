@@ -102,24 +102,15 @@ public class ClienteDAO {
 
     public void excluir(int id) throws SQLException {
 
+        String sql = "DELETE FROM cliente WHERE id = ?";
+
         Connection cnn = util.Conexao.getConexao();
-        cnn.setAutoCommit(false);
 
-        try {
+        PreparedStatement prd = cnn.prepareStatement(sql);
 
-            String sql = "DELETE FROM cliente"
-                    + " WHERE id = ?";
+        prd.setInt(1, id);
 
-            PreparedStatement prd = cnn.prepareStatement(sql);
-
-            prd.setInt(1, id);
-
-            prd.execute();
-        } catch (Exception e) {
-            //Desfaz as alterações no banco de dados 
-            cnn.rollback();
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        prd.execute();
         cnn.close();
 
     }

@@ -13,12 +13,16 @@ public class Midia {
     
     private Integer id;
     private Integer quantidade;
+    private Double preco;
+    private String tipoMidia;
     private boolean disponibilidade;
     private Integer titulo_id;
 
-    public Midia(Integer id, Integer quantidade, boolean disponibilidade, Integer titulo_id) {
+    public Midia(Integer id, Integer quantidade, Double preco, String tipoMidia, boolean disponibilidade, Integer titulo_id) {
         this.id = id;
         this.quantidade = quantidade;
+        this.preco = preco;
+        this.tipoMidia = tipoMidia;
         this.disponibilidade = disponibilidade;
         this.titulo_id = titulo_id;
     }
@@ -40,6 +44,22 @@ public class Midia {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getTipoMidia() {
+        return tipoMidia;
+    }
+
+    public void setTipoMidia(String tipoMidia) {
+        this.tipoMidia = tipoMidia;
     }
 
     public boolean isDisponibilidade() {

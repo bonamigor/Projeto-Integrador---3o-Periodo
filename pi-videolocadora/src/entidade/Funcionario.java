@@ -14,13 +14,11 @@ public class Funcionario {
     private Integer id;
     private String nome;
     private String cargo;
-    private Integer cliente_id;
 
-    public Funcionario(Integer id, String nome, String cargo, Integer cliente_id) {
+    public Funcionario(Integer id, String nome, String cargo) {
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
-        this.cliente_id = cliente_id;
     }
     
     public Funcionario(){
@@ -49,14 +47,6 @@ public class Funcionario {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
-    }
-
-    public Integer getCliente_id() {
-        return cliente_id;
-    }
-
-    public void setCliente_id(Integer cliente_id) {
-        this.cliente_id = cliente_id;
     }
     
 }
