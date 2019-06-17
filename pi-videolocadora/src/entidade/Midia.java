@@ -5,6 +5,8 @@
  */
 package entidade;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rafael
@@ -39,6 +41,11 @@ public class Midia {
     }
 
     public Integer getQuantidade() {
+        if(quantidade <= 0){
+            JOptionPane.showMessageDialog(null, "Não existem mais mídias disponíveis");
+        }else {
+            return quantidade;
+        }
         return quantidade;
     }
 

@@ -193,4 +193,25 @@ public class TituloDAO {
         return lista;
     }
     
+    public int pegaId(String nome) throws SQLException {
+
+        int id = 0;
+
+        Connection cnn = util.Conexao.getConexao();
+
+        String sql = "SELECT id FROM titulo WHERE nome = ?";
+
+        PreparedStatement stm = cnn.prepareStatement(sql);
+        stm.setString(1, nome);
+
+        ResultSet rs = stm.executeQuery();
+
+        if (rs.next()) {
+            id = rs.getInt("id");
+        }
+
+        return id;
+
+    }
+    
 }

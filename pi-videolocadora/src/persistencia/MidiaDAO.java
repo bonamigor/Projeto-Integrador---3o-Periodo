@@ -120,6 +120,37 @@ public class MidiaDAO {
 
         return midia;
     }
+    
+    public Midia consultarPeloTitulo(int id, String tipo) throws SQLException {
+
+        Connection cnn = util.Conexao.getConexao();
+        
+        tipo = tipo.toUpperCase();
+
+        String sql = "SELECT id, quantidade, disponibilidade, titulo_id, preco, tipomidia FROM midia WHERE titulo_id = ? AND UPPER(tipomidia) = ?";
+
+        PreparedStatement stm = cnn.prepareStatement(sql);
+        stm.setInt(1, id);
+        stm.setString(2, tipo);
+
+        ResultSet rs = stm.executeQuery();
+        
+        
+        Midia midia = new Midia();
+        
+        if (rs.next()) {
+            midia.setId(rs.getInt("id"));
+            midia.setQuantidade(rs.getInt("quantidade"));
+            midia.setDisponibilidade(rs.getBoolean("disponibilidade"));
+            midia.setTitulo_id(rs.getInt("titulo_id"));
+            midia.setPreco(rs.getDouble("preco"));
+            midia.setTipoMidia(rs.getString("tipomidia"));
+        }
+        rs.close();
+        cnn.close();
+
+        return midia;
+    }
 
     public List<Midia> listar() throws SQLException {
 

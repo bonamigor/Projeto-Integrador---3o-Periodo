@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import Adapter.InterfaceCadastro;
 import entidade.Cliente;
 import java.sql.Connection;
 import java.sql.Date;
@@ -27,7 +28,7 @@ public class ClienteDAO {
         try {
 
             //Cria a instrução SQL para a inserção no banco
-            String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id "
+            String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id) "
                     + "VALUES(?,?,?,?,?,?,?);";
 
             //Criando o objeto para a conexao
@@ -46,6 +47,52 @@ public class ClienteDAO {
             prd.setString(5, parametro.getEmail());
             prd.setDate(6, dataSQL);
             prd.setInt(7, 0);
+
+            //Executa o comando
+            prd.execute();
+
+            //Recupera o id gerado
+            String sql2 = "SELECT currval('cliente_id_seq') as id";
+
+            Statement stm = cnn.createStatement();
+            ResultSet rs = stm.executeQuery(sql2);
+
+            if (rs.next()) {
+                parametro.setId(rs.getInt("id"));
+            }
+
+            rs.close();
+            cnn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }
+    
+    public void incluirDecorator(Cliente parametro) throws SQLException {
+        try {
+
+            //Cria a instrução SQL para a inserção no banco
+            String sql = "INSERT INTO cliente (nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id, tipocliente) "
+                    + "VALUES(?,?,?,?,?,?,?,?);";
+
+            //Criando o objeto para a conexao
+            Connection cnn = util.Conexao.getConexao();
+            //Cria o objeto para executar os comandos no banco
+            PreparedStatement prd = cnn.prepareStatement(sql);
+
+            java.sql.Date dataSQL = new Date(parametro.getData_nascimento().getTime());
+
+            //Substitui as variveis do sql pelos valores passados
+            //como parametro
+            prd.setString(1, parametro.getNome());
+            prd.setString(2, parametro.getCpf());
+            prd.setString(3, parametro.getTelefone());
+            prd.setString(4, parametro.getEndereco());
+            prd.setString(5, parametro.getEmail());
+            prd.setDate(6, dataSQL);
+            prd.setInt(7, 0);
+            prd.setString(8, parametro.getTipoCliente());
 
             //Executa o comando
             prd.execute();
@@ -144,6 +191,37 @@ public class ClienteDAO {
 
         return cliente;
     }
+    
+    public Cliente consultarNome(String nome) throws SQLException {
+
+        Connection cnn = util.Conexao.getConexao();
+
+        String sql = "SELECT id, nome, cpf, telefone, endereco, email, data_nascimento, funcionario_id"
+                + " FROM cliente "
+                + " UPPER(nome) LIKE '"+nome+"%'";
+
+        PreparedStatement stm = cnn.prepareStatement(sql);
+        stm.setString(1, nome);
+
+        ResultSet rs = stm.executeQuery();
+
+        Cliente cliente = new Cliente();
+        
+        if (rs.next()) {
+            cliente.setId(rs.getInt("id"));
+            cliente.setNome(rs.getString("nome"));
+            cliente.setCpf(rs.getString("cpf"));
+            cliente.setTelefone(rs.getString("telefone"));
+            cliente.setEndereco(rs.getString("endereco"));
+            cliente.setEmail(rs.getString("email"));
+            cliente.setData_nascimento(rs.getDate("data_nascimento"));
+            cliente.setFuncionario_id(rs.getInt("funcionario_id"));
+        }
+        rs.close();
+        cnn.close();
+
+        return cliente;
+    }
 
     public List<Cliente> listar() throws SQLException {
 
@@ -198,5 +276,44 @@ public class ClienteDAO {
 
         return lista;
     }
+    
+    public List<String> comboBox() throws SQLException {
 
+        List<String> strList = new ArrayList<String>();
+
+        Connection cnn = util.ConexaoSingleton.getConnection();
+
+        String sql = "SELECT nome FROM cliente";
+
+        PreparedStatement prd = cnn.prepareStatement(sql);
+
+        ResultSet rs = prd.executeQuery();
+
+        while (rs.next()) {
+            strList.add(rs.getString("nome"));
+        }
+        prd.close();
+        return strList;
+    }
+    
+    public int pegaId(String nome) throws SQLException {
+
+        int id = 0;
+
+        Connection cnn = util.Conexao.getConexao();
+
+        String sql = "SELECT id FROM cliente WHERE nome = ?";
+
+        PreparedStatement stm = cnn.prepareStatement(sql);
+        stm.setString(1, nome);
+
+        ResultSet rs = stm.executeQuery();
+
+        if (rs.next()) {
+            id = rs.getInt("id");
+        }
+
+        return id;
+
+    }
 }

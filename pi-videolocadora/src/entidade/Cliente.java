@@ -21,8 +21,9 @@ public class Cliente {
     private String email;
     private Date data_nascimento;
     private Integer funcionario_id;
+    private String tipoCliente;
 
-    public Cliente(Integer id, String nome, String cpf, String telefone, String endereco, String email, Date data_nascimento, Integer funcionario_id) {
+    public Cliente(Integer id, String nome, String cpf, String telefone, String endereco, String email, Date data_nascimento, Integer funcionario_id, String tipoCliente) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -31,6 +32,7 @@ public class Cliente {
         this.email = email;
         this.data_nascimento = data_nascimento;
         this.funcionario_id = funcionario_id;
+        this.tipoCliente = tipoCliente;
     }
     
     public Cliente(){
@@ -104,5 +106,12 @@ public class Cliente {
     public void setFuncionario_id(Integer funcionario_id) {
         this.funcionario_id = funcionario_id;
     }
-    
+
+    public String getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(String tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
 }

@@ -42,8 +42,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuMidia = new javax.swing.JMenuItem();
         menuReserva = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        menuLocacao = new javax.swing.JMenuItem();
         menuVenda = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         menuDevolucao = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -124,16 +124,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuReserva.add(jMenuItem1);
 
-        menuVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        menuVenda.setText("Locação");
-        menuReserva.add(menuVenda);
+        menuLocacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        menuLocacao.setText("Locação");
+        menuLocacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLocacaoActionPerformed(evt);
+            }
+        });
+        menuReserva.add(menuLocacao);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem3.setText("Venda");
-        menuReserva.add(jMenuItem3);
+        menuVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        menuVenda.setText("Venda");
+        menuReserva.add(menuVenda);
 
         menuDevolucao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         menuDevolucao.setText("Devolução");
+        menuDevolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDevolucaoActionPerformed(evt);
+            }
+        });
         menuReserva.add(menuDevolucao);
 
         jMenuBar1.add(menuReserva);
@@ -187,14 +197,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
         // TODO add your handling code here:
-        
+
         sair();
 
     }//GEN-LAST:event_menuSairActionPerformed
 
     private void menuDependenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDependenteActionPerformed
         // TODO add your handling code here:
-        
+
         try {
 
             CadDependente cadastroDependente = new CadDependente(this.painelPrincipal);
@@ -204,12 +214,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }//GEN-LAST:event_menuDependenteActionPerformed
 
     private void menuTitulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTitulosActionPerformed
         // TODO add your handling code here:
-        
+
         try {
 
             CadTitulo cadastroTitulo = new CadTitulo(this.painelPrincipal);
@@ -219,12 +229,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }//GEN-LAST:event_menuTitulosActionPerformed
 
     private void menuMidiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMidiaActionPerformed
         // TODO add your handling code here:
-        
+
         try {
 
             CadMidia cadastroMidia = new CadMidia(this.painelPrincipal);
@@ -234,12 +244,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }//GEN-LAST:event_menuMidiaActionPerformed
 
     private void menuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncionarioActionPerformed
         // TODO add your handling code here:
-        
+
         try {
 
             CadFuncionario cadastroFuncionario = new CadFuncionario(this.painelPrincipal);
@@ -249,12 +259,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }//GEN-LAST:event_menuFuncionarioActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        
+
         try {
 
             CadReserva cadastroReserva = new CadReserva(this.painelPrincipal);
@@ -264,8 +274,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLocacaoActionPerformed
+        // TODO add your handling code here:
+
+        try {
+
+            CadLocacao cadastroLocacao = new CadLocacao(this.painelPrincipal);
+            this.painelPrincipal.add(cadastroLocacao);
+            cadastroLocacao.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_menuLocacaoActionPerformed
+
+    private void menuDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDevolucaoActionPerformed
+        // TODO add your handling code here:
+
+        try {
+
+            CadDevolucao cadastroDevolucao = new CadDevolucao(this.painelPrincipal);
+            this.painelPrincipal.add(cadastroDevolucao);
+            cadastroDevolucao.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
+    }//GEN-LAST:event_menuDevolucaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,12 +347,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuCadCliente;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuDependente;
     private javax.swing.JMenuItem menuDevolucao;
     private javax.swing.JMenuItem menuFuncionario;
+    private javax.swing.JMenuItem menuLocacao;
     private javax.swing.JMenuItem menuMidia;
     private javax.swing.JMenu menuReserva;
     private javax.swing.JMenuItem menuSair;

@@ -139,4 +139,44 @@ public class MultaDAO {
         return lista;
     }
     
+    public List<String> comboBox() throws SQLException {
+
+        List<String> strList = new ArrayList<String>();
+
+        Connection cnn = util.ConexaoSingleton.getConnection();
+
+        String sql = "SELECT descricao FROM multa";
+
+        PreparedStatement prd = cnn.prepareStatement(sql);
+
+        ResultSet rs = prd.executeQuery();
+
+        while (rs.next()) {
+            strList.add(rs.getString("descricao"));
+        }
+        prd.close();
+        return strList;
+    }
+    
+    public int pegaId(String item) throws SQLException {
+
+        int id = 0;
+
+        Connection cnn = util.Conexao.getConexao();
+
+        String sql = "SELECT id FROM multa WHERE descricao = ?";
+
+        PreparedStatement stm = cnn.prepareStatement(sql);
+        stm.setString(1, item);
+
+        ResultSet rs = stm.executeQuery();
+
+        if (rs.next()) {
+            id = rs.getInt("id");
+        }
+
+        return id;
+
+    }
+    
 }

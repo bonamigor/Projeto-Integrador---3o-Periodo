@@ -5,10 +5,9 @@
  */
 package persistencia;
 
-import entidade.Dependente;
+import Adapter.InterfaceCadastro;
 import entidade.Funcionario;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +19,13 @@ import java.util.List;
  *
  * @author rafael
  */
-public class FuncionarioDAO {
+public class FuncionarioDAO implements InterfaceCadastro{
     
+    @Override
     public void incluir(Funcionario parametro) throws SQLException {
 
         //Cria a instrução SQL para a inserção no banco
-        String sql = "INSERT INTO funcionario (cargo, nome) VALUES(?,?);";
+        String sql = "INSERT INTO funcionario (nome) VALUES(?);";
 
         //Criando o objeto para a conexao
         Connection cnn = util.Conexao.getConexao();
@@ -35,8 +35,7 @@ public class FuncionarioDAO {
 
         //Substitui as variveis do sql pelos valores passados
         //como parametro
-        prd.setString(1, parametro.getCargo());
-        prd.setString(2, parametro.getNome());
+        prd.setString(1, parametro.getNome());
 
         //Executa o comando
         prd.execute();
@@ -134,6 +133,46 @@ public class FuncionarioDAO {
         cnn.close();
 
         return lista;
+    }
+    
+    public List<String> comboBox() throws SQLException {
+
+        List<String> strList = new ArrayList<String>();
+
+        Connection cnn = util.ConexaoSingleton.getConnection();
+
+        String sql = "SELECT nome FROM funcionario";
+
+        PreparedStatement prd = cnn.prepareStatement(sql);
+
+        ResultSet rs = prd.executeQuery();
+
+        while (rs.next()) {
+            strList.add(rs.getString("nome"));
+        }
+        prd.close();
+        return strList;
+    }
+    
+    public int pegaId(String item) throws SQLException {
+
+        int id = 0;
+
+        Connection cnn = util.Conexao.getConexao();
+
+        String sql = "SELECT id FROM funcionario WHERE nome = ?";
+
+        PreparedStatement stm = cnn.prepareStatement(sql);
+        stm.setString(1, item);
+
+        ResultSet rs = stm.executeQuery();
+
+        if (rs.next()) {
+            id = rs.getInt("id");
+        }
+
+        return id;
+
     }
     
 }

@@ -18,27 +18,27 @@ public class Atendimento {
     private Integer cliente_id;
     private Integer dependente_id;
     private Integer multa_id;
+    private Integer titulo_id;
+    private Integer midia_id;
     private Integer quantidadeMidias;
-    private Date dataVenda;
-    private Date dataReserva;
-    private Date dataLocacao;
-    private Date dataDevolucao;
-    private Date duracao;
+    private Date dataEntrada;
+    private Date dataSaida;
+    private Integer duracao;
     private Double desconto;
     private Double valorTotal;
     private boolean status;
 
-    public Atendimento(Integer id, Integer funcionario_id, Integer cliente_id, Integer dependente_id, Integer multa_id, Integer quantidadeMidias, Date dataVenda, Date dataReserva, Date dataLocacao, Date dadaDevolucao, Date duracao, Double desconto, Double valorTotal, boolean status) {
+    public Atendimento(Integer id, Integer funcionario_id, Integer cliente_id, Integer dependente_id, Integer multa_id, Integer titulo_id, Integer midia_id, Integer quantidadeMidias, Date dataEntrada, Date dataSaida,  Integer duracao, Double desconto, Double valorTotal, boolean status) {
         this.id = id;
         this.funcionario_id = funcionario_id;
         this.cliente_id = cliente_id;
         this.dependente_id = dependente_id;
         this.multa_id = multa_id;
+        this.titulo_id = titulo_id;
+        this.midia_id = midia_id;
         this.quantidadeMidias = quantidadeMidias;
-        this.dataVenda = dataVenda;
-        this.dataReserva = dataReserva;
-        this.dataLocacao = dataLocacao;
-        this.dataDevolucao = dadaDevolucao;
+        this.dataEntrada = dataEntrada;
+        this.dataSaida = dataSaida;
         this.duracao = duracao;
         this.desconto = desconto;
         this.valorTotal = valorTotal;
@@ -89,6 +89,22 @@ public class Atendimento {
         this.multa_id = multa_id;
     }
 
+    public Integer getTitulo_id() {
+        return titulo_id;
+    }
+
+    public void setTitulo_id(Integer titulo_id) {
+        this.titulo_id = titulo_id;
+    }
+
+    public Integer getMidia_id() {
+        return midia_id;
+    }
+
+    public void setMidia_id(Integer midia_id) {
+        this.midia_id = midia_id;
+    }
+    
     public Integer getQuantidadeMidias() {
         return quantidadeMidias;
     }
@@ -97,43 +113,27 @@ public class Atendimento {
         this.quantidadeMidias = quantidadeMidias;
     }
 
-    public Date getDataVenda() {
-        return dataVenda;
+    public Date getDataEntrada() {
+        return dataEntrada;
     }
 
-    public void setDataVenda(Date dataVenda) {
-        this.dataVenda = dataVenda;
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
-    public Date getDataReserva() {
-        return dataReserva;
+    public Date getDataSaida() {
+        return dataSaida;
     }
 
-    public void setDataReserva(Date dataReserva) {
-        this.dataReserva = dataReserva;
+    public void setDataSaida(Date dataSaida) {
+        this.dataSaida = dataSaida;
     }
 
-    public Date getDataLocacao() {
-        return dataLocacao;
-    }
-
-    public void setDataLocacao(Date dataLocacao) {
-        this.dataLocacao = dataLocacao;
-    }
-
-    public Date getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(Date dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public Date getDuracao() {
+    public Integer getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(Date duracao) {
+    public void setDuracao(Integer duracao) {
         this.duracao = duracao;
     }
 
